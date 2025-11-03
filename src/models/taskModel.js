@@ -21,6 +21,12 @@ const taskModel = mongoose.Schema({
         enum : ["pending", "in-progress", "completed"],
         default : "pending",
         required : true
-    }}
+    }},
+
+    {
+       timestamps : true
     
-})
+   }
+);
+
+export default mongoose.model("Tasks", taskModel)
