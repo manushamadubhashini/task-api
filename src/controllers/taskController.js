@@ -57,3 +57,17 @@ export const updateTask = async (request , response , next) => {
         next(error);
     }
 }
+
+export const getTaskById = async (request , response , next) => {
+    try {
+        const taskId = request.params.id;
+        const task = await taskService.getTaskById(taskId);
+
+        if(!task){
+            return next (new CustomError(`Task not found with ID: ${taskId}` , 404));
+        }
+        return response.status(200).json({message : "Task fetched successfully" , data : task});
+    }catch (error) {
+        next(error);
+    }
+}

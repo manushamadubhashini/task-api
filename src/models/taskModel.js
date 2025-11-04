@@ -9,11 +9,17 @@ const taskModel = mongoose.Schema({
 
     title : {
         type : String,
-        required : true
+        trim : true,
+        required : [true , "title is required"],
+        minlength : [3 , "title must be at least 3 characters long"],
+        maxlength : [100 , "title must be at most 100 characters long"]
     },
      
     description : {
         type : String,
+        trim : true,
+        maxlength : [500 , "description must be at most 500 characters long"],
+        default : ""
 
     },
 
@@ -21,7 +27,7 @@ const taskModel = mongoose.Schema({
         type : String,
         enum : ["pending", "in-progress", "completed"],
         default : "pending",
-        required : true
+        required : [true , "status is required"]
     }},
 
     {

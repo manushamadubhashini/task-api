@@ -24,3 +24,7 @@ export const deleteTaskById = async (id) => {
 export const updateTaskById = async (id, task) => {
   return await taskModel.findOneAndUpdate({id:id},task,{new : true})
 };
+
+export const getTaskById = async (id) => {
+    return await taskModel.findOne({id : id})
+}
