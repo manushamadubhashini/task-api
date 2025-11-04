@@ -27,7 +27,7 @@ A simple RESTful API for managing tasks built with Node.js, Express.js, and Mong
 
 1. **Clone the repository**
 ```bash
-git clone 
+git clone git@github.com:manushamadubhashini/task-api.git
 cd task-api
 ```
 
