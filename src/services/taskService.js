@@ -18,9 +18,9 @@ export const createTask = async (task) => {
 };
 
 export const deleteTaskById = async (id) => {
-  return await taskModel.findByIdAndDelete(id);
+  return await taskModel.findOneAndDelete({id : id});
 };
 
 export const updateTaskById = async (id, task) => {
-  return await taskModel.findByIdAndUpdate(id, task, { new: true });
+  return await taskModel.findOneAndUpdate({id:id},task,{new : true})
 };

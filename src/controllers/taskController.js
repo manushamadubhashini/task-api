@@ -1,55 +1,59 @@
 import { request , response } from "express"
 import * as taskService from "../services/taskService.js"
+import { CustomError } from "../utils/customError.js";
 
-export const getAllTask =  async (request , response) =>{
+console.log("CustomError imported:", CustomError);
+
+
+export const getAllTask =  async (request , response , next) =>{
   try {
     const tasks = await taskService.getAllTasks();
     response.status(200).json({message : "Tasks fetched successfully", data : tasks});
 
   }catch (error) {
-    response.status(500).json({message : "Error while fetching tasks", error : error.message});
+    next(error)
   }
 }
 
-export const createTask = async (request , response) => {
+export const createTask = async (request , response , next) => {
     try {
         const newTask = request.body;
         const createdTask = await taskService.createTask(newTask)
         response.status(201).json({message : "Task created successfully" , data : createdTask});
 
     }catch (error) {
-        response.status(500).json({message : "Error while creating task", error : error.message});
+        next(error);
     }
 }
 
-export const deleteTask = async (request , response) => {
+export const deleteTask = async (request , response , next) => {
     try {
         const taskId = request.params.id;
-        const deleteTask = await taskService.deleteTaskById(taskId);
+        const deletedTask = await taskService.deleteTaskById(taskId);
 
-        if(!deleteTask) {
-            return response.status(404).json({message : "Task not found"});
+        if(!deletedTask) {
+            return next(new CustomError(`Task not found with ID: ${taskId}`, 404));
         }
 
-        return response.status(200).json({message : "Task deleted successfully", data : deleteTask});
+        return response.status(200).json({message : "Task deleted successfully", data : deletedTask});
 
     }catch (error) {
-        return response.status(500).json({message : "Error while deleting task", error : error.message});
+         next(error);
     }
 }
 
-export const updateTask = async (request , response) => {
+export const updateTask = async (request , response , next) => {
     try {
         const taskId = request.params.id;
         const taskData = request.body;
-        const updateTask = await taskService.updateTaskById(taskId,taskData);
-        if (!updateTask) {
-            return response.status(400).json({message : "Task not found"});
+        const updatedTask = await taskService.updateTaskById(taskId,taskData);
+        if (!updatedTask) {
+            return next(new CustomError(`Task not found with ID: ${taskId}`, 404));
         }
 
-        return response.status(200).json({message : "Task updated successfully", data : updateTask})
+        return response.status(200).json({message : "Task updated successfully", data : updatedTask})
 
     }catch (error) {
-        return response.status(500).json({message : "Error while updating task", error : error.message})
+        next(error);
     }
 }
