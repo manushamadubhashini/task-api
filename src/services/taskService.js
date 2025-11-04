@@ -26,5 +26,5 @@ export const updateTaskById = async (id, task) => {
 };
 
 export const getTaskById = async (id) => {
-    return await taskModel.findOne({id : id})
+  return await taskModel.findOne({id : id});
 }
