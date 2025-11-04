@@ -176,19 +176,7 @@ Response (200):
         "__v": 0
     }
 }
-```{
-    "message": "Task fetched successfully",
-    "data": {
-        "_id": "6909c995b7a10bcb07015c3f",
-        "id": "T005",
-        "title": "Task 5",
-        "description": "This is task 5",
-        "status": "pending",
-        "createdAt": "2025-11-04T09:38:29.632Z",
-        "updatedAt": "2025-11-04T09:38:29.632Z",
-        "__v": 0
-    }
-}
+```
 
 ## Testing with Postman
 
@@ -203,7 +191,6 @@ Response (200):
 - Ensure MongoDB is running: `mongod`
 - Check `MONGODB_URI` in `.env`
 
-``
-
 ## Author
+
 Manusha Madubhashini
